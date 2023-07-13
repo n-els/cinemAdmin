@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    @if (session()->has("success"))
+    <div class="mt-12 py-6 text-center sm:px-6 lg:px-8 bg-white dark:bg-green-800 text-gray-900 dark:text-gray-100">
+        <p class="text-xl font-bold">{{session()->get("success")}}</p>
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -31,7 +37,19 @@
                                     <td>{{$genre->id}}</td>
                                     <td>{{$genre->name}}</td>
                                     <td>{{$genre->created_at}}</td>
-                                    <td>edit | delete</td>
+                                    <td>
+                                        <a href="{{ route('genres.edit', ['genre'=> $genre->id]) }}">
+                                            Edit
+                                        </a>
+                                        |
+                                        <form class="inline-block"
+                                            action="{{ route('genres.destroy', ['genre' => $genre->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

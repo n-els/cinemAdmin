@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Genre;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -38,7 +39,7 @@ class GenreController extends Controller
 
         Genre::create($validated);
 
-        return redirect()->route('genres.index')->with('success', 'Genre created.');
+        return redirect()->route('genres.index')->with('success', "Genre '" . $validated["name"] . "' successfully created.");
     }
 
     /**
@@ -68,8 +69,9 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genre $genre)
+    public function destroy(Genre $genre): RedirectResponse
     {
-        //
+        $genre->delete();
+        return redirect()->route('genres.index')->with('success', "Genre '" . $genre["name"] . "' successfully deleted.");
     }
 }
