@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,3 +45,7 @@ require __DIR__ . '/auth.php';
  * DELETE /genres/{genre} -> destroy -> genres.destroy
  */
 Route::resource('genres', GenreController::class)->middleware('auth');
+
+
+// Movie Routes
+Route::resource('movies', MovieController::class)->middleware('auth');
